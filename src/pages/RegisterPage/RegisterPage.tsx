@@ -3,20 +3,46 @@ import { Form, Button, InputGroup } from 'react-bootstrap';
 import './style.css'
 import imageLogin from '../../assets/images/login_page.png';
 import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../../services/UserServices';
 
 const RegisterPage: React.FC = () => {
-  const [account, setAccount] = useState('');
+  // const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Phone Number:', account);
-    console.log('Password:', confirmPassword);
+    setError('');
+    setSuccessMessage('');
+
+    try {
+      const data = {
+        email,
+        password,
+        phone
+      };
+      
+      const response = await registerUser(data);
+
+      // Handle successful registration
+        setSuccessMessage('Đăng ký thành công!');
+        console.log('Register successful:', response);
+  
+        // Redirect to login page
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000); // Wait for 2 seconds before redirect
+      
+    } catch (err: any) {
+      setError(err.message);
+      console.error('Login error:', err);
+    }
   };
 
   const handleNavigateLogin= () => {
@@ -31,18 +57,9 @@ const RegisterPage: React.FC = () => {
           <h3>Chào mừng bạn đến với</h3>
           <h2>THE COFFEE SHOP</h2>
         </div>
-        <InputGroup className="mb-3">
-          <InputGroup.Text>
-            Tài khoản:
-          </InputGroup.Text>
-          <Form.Control
-            type="account"
-            placeholder="Nhập tài khoản"
-            value={account}
-            onChange={(e) => setAccount(e.target.value)}
-            required
-          />
-        </InputGroup>
+
+        {error && <p className="text-danger">{error}</p>} {/* Display any error messages */}
+        {successMessage && <p className="text-success">{successMessage}</p>}
 
         <InputGroup className="mb-3">
           <InputGroup.Text style={{paddingRight: 40}}>
@@ -50,7 +67,7 @@ const RegisterPage: React.FC = () => {
           </InputGroup.Text>
           <Form.Control
             type="email"
-            placeholder="Nhập lại email"
+            placeholder="Nhập email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
