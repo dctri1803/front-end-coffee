@@ -1,0 +1,28 @@
+.product-detail-page h2 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .size-selection button,
+  .topping-selection button {
+    margin-bottom: 0.5rem;
+  }
+  
+  .breadcrumb {
+    background: none;
+    padding: 0;
+  }
+  
+  .breadcrumb-item a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  .related-products h5 {
+    font-weight: bold;
+  }
+  
+  .related-products .col-md-3 {
+    text-align: center;
+  }
+  

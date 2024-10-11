@@ -1,6 +1,7 @@
 import ForgotPasswordPage from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import HomePage from "../pages/HomePage/HomePage";
 import LoginPage from "../pages/LoginPage/LoginPage";
+import ProductDetailPage from "../pages/ProductDetailPage/ProductDetailPage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
 
@@ -9,27 +10,32 @@ export const routes = [
     {
         path: '/',
         page: HomePage,
-        isShowHeader: true
+        isShowFooterAndHeader: true,
     },
     {
         path: '/login',
         page: LoginPage,
-        isShowHeader: true
+        isShowFooterAndHeader: false,
     },
     {
         path: '/register',
         page: RegisterPage,
-        isShowHeader: true
+        isShowFooterAndHeader: false,
     },
     {
         path: '/forgot-password',
         page: ForgotPasswordPage,
-        isShowHeader: true
+        isShowFooterAndHeader: false,
     },
     {
         path: '/reset-password',
         page: ResetPasswordPage,
-        isShowHeader: true
+        isShowFooterAndHeader: false,
+    },
+    {
+        path: '/product-details',
+        page: ProductDetailPage,
+        isShowFooterAndHeader: true,
     }
     
 ]
