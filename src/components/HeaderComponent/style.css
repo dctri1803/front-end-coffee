@@ -11,6 +11,14 @@
     padding: 10px 20px;
   }
   
+  .header-logo .logo-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 22px;
+    font-weight: bold;
+    color: #5d4037; /* A coffee-themed color */
+    text-decoration: none;
+  }
+
   /* Logo Styles */
   .header-logo img {
     max-width: 120px;

@@ -16,7 +16,6 @@ const Footer: React.FC = () => {
               <li><a href="/" className="text-light">Khuyến mãi</a></li>
               <li><a href="/" className="text-light">Chuyện cà phê</a></li>
               <li><a href="/" className="text-light">Cửa Hàng</a></li>
-              <li><a href="/" className="text-light">Tuyển dụng</a></li>
             </ul>
           </div>
 
@@ -77,11 +76,11 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Floating Chat Icon */}
-      <div className="floating-chat-icon">
+      {/* <div className="floating-chat-icon">
         <a href="/">
           <i className="fas fa-headset fa-2x text-light"></i>
         </a>
-      </div>
+      </div> */}
     </footer>
   );
 };

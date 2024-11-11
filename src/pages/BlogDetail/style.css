@@ -1,0 +1,32 @@
+/* BlogDetailPage.css */
+
+/* Container for the blog detail page */
+.blog-container {
+  margin-top: 20px;
+  padding: 0 30px; /* Add horizontal padding */
+}
+
+/* Heading style */
+.blog-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Content paragraph style */
+.blog-content {
+  font-size: 1.125rem; /* Slightly larger text */
+  line-height: 1.6; /* Increase line height for better readability */
+  margin-bottom: 20px;
+  max-width: 800px; /* Limit the width for better text readability */
+  margin: 0 auto; /* Center the text */
+}
+
+/* Style for images */
+.blog-image {
+  width: 100%;
+  max-width: 800px; /* Limit image size */
+  margin: 20px auto; /* Add margin for separation */
+  display: block; /* Ensure the image behaves like a block element */
+}

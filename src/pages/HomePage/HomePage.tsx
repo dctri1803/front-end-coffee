@@ -1,35 +1,56 @@
 import React, { useEffect, useState } from 'react';
+import { getAllProducts } from '../../services/ProductServices';
+import { getAllBlogs } from '../../services/BlogServices';
+import { Link } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [loadingProducts, setLoadingProducts] = useState<boolean>(true);
+  const [loadingBlogs, setLoadingBlogs] = useState<boolean>(true);
+  const [errorProducts, setErrorProducts] = useState<string | null>(null);
+  const [errorBlogs, setErrorBlogs] = useState<string | null>(null);
 
+  // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3001/products');
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
-        const data = await response.json();
-        setProducts(data);
+        const response = await getAllProducts();
+        setProducts(response.data); // Adjusted to access 'data' field in the response
       } catch (error) {
-        throw (error)
+        setErrorProducts(error instanceof Error ? error.message : 'An error occurred');
       } finally {
-        setLoading(false);
+        setLoadingProducts(false);
       }
     };
-
     fetchProducts();
   }, []);
 
-  if (loading) {
+  // Fetch blogs
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await getAllBlogs();
+        setBlogs(response.data);
+      } catch (error) {
+        setErrorBlogs(error instanceof Error ? error.message : 'An error occurred');
+      } finally {
+        setLoadingBlogs(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  if (loadingProducts || loadingBlogs) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (errorProducts) {
+    return <div>Error loading products: {errorProducts}</div>;
+  }
+
+  if (errorBlogs) {
+    return <div>Error loading blogs: {errorBlogs}</div>;
   }
 
   return (
@@ -72,29 +93,52 @@ const HomePage: React.FC = () => {
         </button>
       </div>
 
-      {/* Cards Section */}
+      {/* Product Cards Section */}
       <div className="row">
         {products.map((product) => (
           <div className="col-md-3" key={product.id}>
             <div className="card mb-3">
-              {/* Display the first image in productImages array */}
-              <img
-                src={product.productImages[0].image_url} // Use the first image URL
-                style={{width:306, height:204}}
-                className="card-img-top"
-                alt={product.name} // Use the product name for alt text
-              />
+              <Link to={`/product/${product.id}`}>
+                <img
+                  src={product.productImages[0]?.image_url}
+                  style={{ width: 306, height: 204 }}
+                  className="card-img-top"
+                  alt={product.name}
+                />
+              </Link>
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>
-                <p className="card-text">
-                  {product.description} {/* Display product description */}
-                </p>
+                <p className="card-text">{product.description}</p>
                 <p className="card-text"><strong>Price: {product.price.toLocaleString()} VND</strong></p>
-                <button className="btn btn-primary">Mua hàng</button> {/* Adjust button functionality as needed */}
+                <button className="btn btn-primary">Mua hàng</button>
               </div>
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Blog Section */}
+      <div className="mt-5">
+        <h2 className="mb-4 text-center">Chuyện nhà</h2>
+        <div className="row">
+          {blogs.map((blog) => (
+            <div className="col-md-4 mb-3" key={blog.id}>
+              <div className="card h-100">
+                <img
+                  src={blog.images[0]?.url} // Display the first image of the blog
+                  className="card-img-top"
+                  alt={blog.title}
+                  style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{blog.title}</h5>
+                  <p className="card-text">{blog.content.substring(0, 100)}...</p> {/* Display an excerpt */}
+                  <a href={`/blog/${blog.id}`} className="btn btn-secondary">Read More</a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

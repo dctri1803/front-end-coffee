@@ -8,7 +8,7 @@ const Header = () => {
       <div className="header-top">
         <div className="container">
           <div className="header-logo">
-            <a href="/">The Coffee House</a>
+            <a href="/" className="logo-text">The Coffee House</a>
           </div>
           <div className="header-menu">
             <nav>
@@ -16,7 +16,7 @@ const Header = () => {
                 <li><Link to="/products">Sản phẩm</Link></li>
                 <li><Link to="/promotion">Khuyến mãi</Link></li>
                 <li><Link to="/store">Cửa hàng</Link></li>
-                <li><Link to="/coffee-story">Chuyện cà phê</Link></li>
+                <li><Link to="/blog">Chuyện nhà</Link></li>
               </ul>
             </nav>
           </div>
